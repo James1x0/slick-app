@@ -1,0 +1,8 @@
+<form class="ui form" {{action "authenticate" on="submit"}}>
+  <div class="field">
+    <label for="username">Chat Username</label>
+    {{input type="text" value=username placeholder="Chat Username"}}
+  </div>
+
+  <button type="submit" class="ui big green fluid button {{if loggingIn 'loading'}}" disabled={{loggingIn}}>Chat!</button>
+</form>
