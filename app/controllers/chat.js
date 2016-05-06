@@ -20,6 +20,14 @@ export default Ember.Controller.extend({
     socket.on('user error', error => {
       this.set('error', error);
     });
+
+    socket.on('typing', typing => {
+      if ( typing.start ) {
+        this.set('typingUser', typing.user);
+      } else if ( this.get('typingUser') === typing.user ) {
+        this.set('typingUser', undefined);
+      }
+    });
   },
 
   actions: {

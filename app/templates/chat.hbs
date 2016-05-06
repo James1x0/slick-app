@@ -1,10 +1,27 @@
-{{chat-messages messages=messages}}
-<div class="ui divider"></div>
+<div class="ui divided grid">
+  <div class="twelve wide column">
+    {{chat-messages messages=messages}}
+    <div class="ui divider"></div>
 
-{{#if error}}
-  <div class="ui negative message">
-    <p>{{error}}</p>
+    {{#if error}}
+      <div class="ui negative message">
+        <p>{{error}}</p>
+      </div>
+    {{/if}}
+
+    {{#if userTyping}}
+      <p class="muted">
+
+      </p>
+    {{/if}}
+
+    {{repl-input placeholder="Your message please" onsubmit=(action "sendMessage")}}
   </div>
-{{/if}}
-
-{{repl-input placeholder="Your message please" onsubmit=(action "sendMessage")}}
+  <div class="four wide column">
+    <div class="ui list">
+      <div class="item">
+        <div class="header">User</div>
+      </div>
+    </div>
+  </div>
+</div>
