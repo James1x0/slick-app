@@ -1,0 +1,15 @@
+$muted: #dddddd;
+
+.muted.text {
+  color: $muted;
+}
+
+.chat__messages {
+  min-height: 20vh;
+  max-height: 60vh;
+  overflow-x: auto;
+
+  .chat__item-date {
+    @extend .muted.text;
+  }
+}

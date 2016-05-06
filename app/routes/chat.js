@@ -4,9 +4,11 @@ export default Ember.Route.extend({
   socket: Ember.inject.service(),
 
   beforeModel () {
-    // if ( !this.get('socket.connected') ) {
-    //   return this.get('socket').init();
-    // }
+    const socket = this.get('socket');
+
+    if ( !socket.get('connected') || !socket.get('user') ) {
+      return this.transitionTo('index');
+    }
   },
 
   model () {

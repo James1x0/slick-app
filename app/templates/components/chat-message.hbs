@@ -1,0 +1,18 @@
+<div class="right floated content">
+  <span class="chat__item-date">{{time-ago message.timeStamp}}</span>
+</div>
+{{#if message.user}}
+  <div class="header">{{message.user}}</div>
+  {{#if message.picture}}
+    {{#if message.searchTerm}}
+      <div class="content text muted">
+        For "{{message.searchTerm}}", giphy gods say
+      </div>
+    {{/if}}
+    <img src={{message.picture.image_url}} height={{message.picture.image_height}} />
+  {{else}}
+    {{message.text}}
+  {{/if}}
+{{else}}
+  <span class="text muted">{{message.text}}</span>
+{{/if}}

@@ -9,7 +9,11 @@ export default Ember.Service.extend({
       const socket = io();
       this.set('_socket', socket);
 
-      socket.on('connection', () => resolve(socket));
+      socket.on('connect', () => {
+        this.set('connected', true);
+        Ember.Logger.debug('Socket :: Connected');
+        resolve(socket);
+      });
       socket.on('error', reject);
 
       for ( let eventName in events ) {
@@ -31,18 +35,18 @@ export default Ember.Service.extend({
 
     let emit = () => {
       Ember.Logger.debug('Emitting event:', args[0]);
-      socket.emit.apply(this, args);
+      socket.emit.apply(socket, args);
     };
 
     if ( this.get('connected') ) {
       emit();
     } else {
-      Ember.Logger.debug('Putting off emitting event:', args[0]);
-      socket.on('connection', emit);
+      Ember.Logger.debug('Deferring event:', args[0]);
+      socket.on('connect', emit);
     }
   },
 
-  on () {
-    this.get('_socket').on(...arguments);
+  on ( event, callback ) {
+    this.get('_socket').on(event, callback);
   }
 });

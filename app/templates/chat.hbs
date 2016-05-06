@@ -1,23 +1,10 @@
-<div class="ui list">
-  {{#each messages as |message|}}
-    <div class="item">
-      <div class="header">{{message.user}}</div>
-      {{message.text}}
-    </div>
-  {{else}}
-    <h3 class="ui header">No messages, yet.</h3>
-  {{/each}}
-</div>
-
+{{chat-messages messages=messages}}
 <div class="ui divider"></div>
 
-<form class="ui form" {{action "sendMessage" on="submit"}}>
-  <div class="fields">
-    <div class="twelve wide field">
-      {{input type="text" value=message placeholder="Yo bro"}}
-    </div>
-    <div class="four wide field">
-      <button type="submit" class="ui primary fluid button">Send It!</button>
-    </div>
+{{#if error}}
+  <div class="ui negative message">
+    <p>{{error}}</p>
   </div>
-</form>
+{{/if}}
+
+{{repl-input placeholder="Your message please" onsubmit=(action "sendMessage")}}

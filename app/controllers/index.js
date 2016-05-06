@@ -6,8 +6,8 @@ var r = ( min, max ) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-var pre = [ 'Baffled', 'Confused', 'Homogenic', 'Sugary', 'Stuckup', 'Prissy', 'Princess', 'Queen', 'Totally' ],
-    suf = [ 'Pirate', 'Waffle', 'Muffin', 'Bacon', 'Scott', 'James', 'Slicker', 'Socket', 'Function', 'Byte' ];
+var pre = [ 'Baffled', 'Confused', 'Homogenic', 'Sugary', 'Stuckup', 'Prissy', 'Princess', 'Queen', 'Totally', 'Sticky', 'Explosive', 'Psycho' ],
+    suf = [ 'Pirate', 'Waffle', 'Muffin', 'Bacon', 'Scott', 'James', 'Slicker', 'Socket', 'Function', 'Byte', 'Poo', 'Rockets', 'Taco', 'Banana' ];
 
 export default Ember.Controller.extend({
   socket: Ember.inject.service(),
@@ -25,7 +25,7 @@ export default Ember.Controller.extend({
       this.set('loggingIn', true);
 
       socket.emit('login', user);
-      socket.on('login_success', () => {
+      socket.on('login success', () => {
         this.set('loggingIn', false);
         socket.set('user', user);
         this.transitionToRoute('chat');

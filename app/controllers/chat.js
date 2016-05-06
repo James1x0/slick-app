@@ -5,18 +5,27 @@ export default Ember.Controller.extend({
   messages: Ember.A(),
 
   init () {
-    this.get('socket').on('message', ( message ) => {
+    const socket = this.get('socket');
+
+    socket.on('new message', message => {
       this.get('messages').pushObject(message);
+    });
+
+    socket.on('user joined', username => {
+      this.get('messages').pushObject({
+        text: username + ' joined the chat.'
+      });
+    });
+
+    socket.on('user error', error => {
+      this.set('error', error);
     });
   },
 
   actions: {
-    sendMessage () {
-      const user = this.get('model'),
-            message = this.get('message');
-
-      this.get('socket').emit('message', { text: message, user });
-      this.set('message', undefined);
+    sendMessage ( message ) {
+      this.set('error', undefined);
+      this.get('socket').emit('message', message);
     }
   }
 });
